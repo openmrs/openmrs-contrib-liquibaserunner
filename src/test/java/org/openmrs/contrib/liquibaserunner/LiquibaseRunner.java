@@ -14,6 +14,7 @@
 package org.openmrs.contrib.liquibaserunner;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,6 +33,7 @@ import liquibase.resource.ClassLoaderResourceAccessor;
 import liquibase.resource.FileSystemResourceAccessor;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link Liquibase} wrapper.
@@ -138,6 +140,13 @@ public class LiquibaseRunner {
 			}
 			properties.load(input);
 			input.close();
+			
+			String propertiesFile = properties.getProperty("properties.file");
+			if (!StringUtils.isBlank(propertiesFile)) {
+				input = new FileInputStream(propertiesFile);
+				properties.load(input);
+				input.close();
+			}
 			
 			return properties;
 		}

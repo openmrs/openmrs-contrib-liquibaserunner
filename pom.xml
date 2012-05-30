@@ -10,6 +10,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<openmrs.version>1.9.0-RC4</openmrs.version>
+		<properties.file></properties.file>
 		<mvp.file>mvp/openmrs_concepts_1.6.5_20120525.xml</mvp.file>
 		<db.url>jdbc:mysql://localhost:3306/liquibaserunner?autoReconnect=true&amp;createDatabaseIfNotExist=true</db.url>
 		<db.user>root</db.user>

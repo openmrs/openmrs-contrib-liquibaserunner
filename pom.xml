@@ -6,42 +6,45 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>Liquibase Runner</name>
 	<description>Executes liquibase scripts against different DBs</description>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>liquibase1</module>
+		<module>liquibase2</module>
+		<module>test</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<liquibase.version>2</liquibase.version>
 		<openmrs.version>1.9.0</openmrs.version>
 		<properties.file></properties.file>
 		<mvp.file>mvp/openmrs_concepts_1.6.5_20120525.xml</mvp.file>
-		<db.url>jdbc:mysql://localhost:3306/liquibaserunner?autoReconnect=true&amp;createDatabaseIfNotExist=true</db.url>
+		<db.url>jdbc:mysql://localhost:3306/liquibaserunner?autoReconnect=true</db.url>
 		<db.user>root</db.user>
 		<db.password></db.password>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-			<version>2.0.1</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.8</version>
+			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.10</version>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.18</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.api</groupId>
-			<artifactId>openmrs-api</artifactId>
-			<version>${openmrs.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -52,18 +55,49 @@
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
+		
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>parse-version</goal>
+						</goals>
+						<configuration>
+							<propertyPrefix>omrsVersion</propertyPrefix>
+							<versionString>${openmrs.version}</versionString>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<repositories>
 		<repository>
 			<id>openmrs-repo</id>

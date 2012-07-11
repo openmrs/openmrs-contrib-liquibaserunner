@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="mvp/prepare-dictionary" author="liquibaserunner"
+		dbms="mysql">
+
+		<sql>SET FOREIGN_KEY_CHECKS=0</sql>
+		<customChange
+			class="org.openmrs.contrib.liquibaserunner.customchange.DropNonDictionaryTables" />
+		<customChange
+			class="org.openmrs.contrib.liquibaserunner.customchange.ResetUsersInTables" />
+		<sql>SET FOREIGN_KEY_CHECKS=1</sql>
+
+	</changeSet>
+
+</databaseChangeLog>

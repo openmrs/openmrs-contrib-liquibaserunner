@@ -53,7 +53,8 @@ public class DropNonDictionaryTables implements CustomSqlChange {
 			List<DropTableStatement> dropStatements = new ArrayList<DropTableStatement>();
 			while (results.next()) {
 				String tableName = results.getString(1);
-				if (!tableName.startsWith("concept") && !tableName.startsWith("databasechangelog")) {
+				if (!tableName.startsWith("concept") && !tableName.startsWith("databasechangelog")
+						&& !tableName.equals("drug") && !tableName.equals("drug_ingredient")) {
 					dropStatements.add(new DropTableStatement(schema, tableName, true));
 				}
 			}

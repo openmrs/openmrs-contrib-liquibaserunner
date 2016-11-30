@@ -12,11 +12,12 @@ before_install:
 script:
   - mvn install -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.0.1" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
   - mysqldump -uroot liquibaserunner > openmrs_concepts_2_0.sql
+  - zip openmrs_concepts_2_0.zip openmrs_concepts_2_0.sql 
 
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
-  file: "openmrs_concepts_2_0.sql"
+  file: "openmrs_concepts_2_0.zip"
   skip_cleanup: true
   on:
     tags: true

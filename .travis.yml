@@ -10,7 +10,7 @@ before_install:
   - mysql -e "create database IF NOT EXISTS liquibaserunner;" -uroot
 
 script:
-  - mvn install -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.0.1" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.sql"
+  - mvn install -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.0.1" -Ddb.user="root" -Ddb.password="" -Dmvp.file="openmrs_concepts_1_6.zip"
   - mysqldump -uroot liquibaserunner > openmrs_concepts_2_0.sql
 
 deploy:

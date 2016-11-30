@@ -25,6 +25,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import liquibase.ClassLoaderFileOpener;
 import liquibase.FileSystemFileOpener;
@@ -95,8 +97,15 @@ public class LiquibaseRunner {
 			input = ClassLoader.getSystemResourceAsStream("sqlfile-changeset.xml");
 			String changeset = IOUtils.toString(input, "UTF-8");
 			input.close();
-			
-			changeset = changeset.replace("${sqlfile}", changeLogFile);
+
+			File file = new File(changeLogFile);
+			if (file.getName().endsWith(".zip")) {
+				File unzippedFile = extractSqlFromZip(file);
+
+				changeset = changeset.replace("${sqlfile}", unzippedFile.getAbsolutePath());
+			} else {
+				changeset = changeset.replace("${sqlfile}", file.getAbsolutePath());
+			}
 			
 			tempFile = File.createTempFile("liquibaserunner", ".xml");
 			
@@ -112,6 +121,45 @@ public class LiquibaseRunner {
 			}
 			IOUtils.closeQuietly(input);
 			IOUtils.closeQuietly(output);
+		}
+	}
+
+	private File extractSqlFromZip(File file) throws IOException {
+		ZipFile zipFile = null;
+		FileOutputStream unzippedFileOut = null;
+		try {
+			zipFile = new ZipFile(file);
+			ZipEntry zipEntry = null;
+			while (zipFile.entries().hasMoreElements()) {
+				zipEntry = zipFile.entries().nextElement();
+				if (zipEntry.getName().endsWith(".sql")) {
+					break;
+				} else {
+					zipEntry = null;
+				}
+			}
+			if (zipEntry == null) {
+				throw new IllegalArgumentException(file.getName() + " does not contain any .sql file");
+			}
+
+			File unzippedFile = File.createTempFile(StringUtils.stripEnd(file.getName(), ".zip"), ".sql");
+			unzippedFileOut = new FileOutputStream(unzippedFile);
+
+			IOUtils.copy(zipFile.getInputStream(zipEntry), unzippedFileOut);
+
+			zipFile.close();
+			unzippedFileOut.close();
+
+			return unzippedFile;
+		} finally {
+			if (zipFile != null) {
+				try {
+					zipFile.close();
+				} catch (Exception e) {
+					//close quietly
+				}
+			}
+			IOUtils.closeQuietly(unzippedFileOut);
 		}
 	}
 	

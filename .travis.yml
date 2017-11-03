@@ -17,7 +17,7 @@ script:
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
-  file: "openmrs_concepts_2_0.sql"
+  file: "openmrs_concepts_2_0.zip"
   skip_cleanup: true
   on:
     tags: true

@@ -18,6 +18,11 @@ script:
   - mvn install -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.1.0" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
   - mysqldump -uroot liquibaserunner > openmrs_concepts_2_1.sql
   - zip openmrs_concepts_2_1.zip openmrs_concepts_2_1.sql 
+  - mysql -e "DROP DATABASE liquibaserunner;" -uroot
+  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
+  - mvn install -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.2.0" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
+  - mysqldump -uroot liquibaserunner > openmrs_concepts_2_2.sql
+  - zip openmrs_concepts_2_2.zip openmrs_concepts_2_2.sql
   
 deploy:
   provider: releases
@@ -25,6 +30,7 @@ deploy:
   file: 
     - "openmrs_concepts_2_0.zip"
     - "openmrs_concepts_2_1.zip"
+    - "openmrs_concepts_2_2.zip"
   skip_cleanup: true
   on:
     tags: true

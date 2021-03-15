@@ -36,6 +36,10 @@ public class UpgradeMVPTest {
 		liquibase = new LiquibaseRunner(properties.getProperty("mvp.file"), false);
 		liquibase.update();
 		liquibase.close();
+
+		liquibase = new LiquibaseRunner("mvp/prepare-dictionary-before-upgrade.xml", false);
+		liquibase.update();
+		liquibase.close();
 		
 		liquibase = new LiquibaseRunner(LiquibaseRunner.OPENMRS_UPDATE_FILE, true);
 		liquibase.update();

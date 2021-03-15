@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="mvp/prepare-dictionary" author="liquibaserunner"
+		dbms="mysql">
+
+		<changeSet id="20210315-prepare-dictionary" author="rkorytkowski">
+			<comment>
+				Renames SNOMED NP to SNOMED CP
+			</comment>
+			<update tableName="concept_source">
+				<column name="name" value="SNOMED CP"/>
+				<where>name='SNOMED NP'</where>
+			</update>
+		</changeSet>
+
+	</changeSet>
+
+</databaseChangeLog>

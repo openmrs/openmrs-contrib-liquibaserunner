@@ -4,19 +4,15 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<changeSet id="mvp/prepare-dictionary" author="liquibaserunner"
+	<changeSet id="mvp/prepare-dictionary-before-upgrade" author="liquibaserunner"
 		dbms="mysql">
-
-		<changeSet id="20210315-prepare-dictionary" author="rkorytkowski">
-			<comment>
-				Renames SNOMED NP to SNOMED CP
-			</comment>
-			<update tableName="concept_source">
-				<column name="name" value="SNOMED CP"/>
-				<where>name='SNOMED NP'</where>
-			</update>
-		</changeSet>
-
+		<comment>
+			Renames SNOMED NP to SNOMED CP
+		</comment>
+		<update tableName="concept_source">
+			<column name="name" value="SNOMED CP"/>
+			<where>name='SNOMED NP'</where>
+		</update>
 	</changeSet>
 
 </databaseChangeLog>

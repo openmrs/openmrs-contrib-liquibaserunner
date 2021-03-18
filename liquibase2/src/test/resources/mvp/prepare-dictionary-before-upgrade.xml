@@ -19,7 +19,7 @@
 			Retires SNOMED NP
 		</comment>
 		<update tableName="concept_source">
-			<column name="retired" value="true" />
+			<column name="retired" value="1" />
 			<column name="retired_by" value="1" />
 			<column name="retire_reason" value="Replaced with SNOMED CT" />
 			<column name="date_retired" value="2021-03-18 12:00:00" />

@@ -16,11 +16,15 @@
 	</changeSet>
 	<changeSet id="mvp/prepare-dictionary-before-upgrade-2" author="liquibaserunner">
 		<comment>
-			Removes SNOMED NP
+			Retires SNOMED NP
 		</comment>
-		<delete tableName="concept_source">
+		<update tableName="concept_source">
+			<column name="retired" value="true" />
+			<column name="retired_by" value="1" />
+			<column name="retire_reason" value="Replaced with SNOMED CT" />
+			<column name="date_retired" value="2021-03-18 12:00:00" />
 			<where>name='SNOMED NP'</where>
-		</delete>
+		</update>
 	</changeSet>
 
 

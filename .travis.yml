@@ -10,6 +10,7 @@ install: true
 
 script:
   - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
+  - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));" -uroot
   - mvn install -q -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="1.11.4" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
   - mysqldump -uroot liquibaserunner > openmrs_concepts_1_11.sql
   - zip openmrs_concepts_1_11.zip openmrs_concepts_1_11.sql

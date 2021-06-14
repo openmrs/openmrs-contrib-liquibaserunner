@@ -2,7 +2,6 @@ package org.openmrs.contrib.liquibaserunner;
 
 
 import junit.framework.Assert;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.util.DatabaseUpdateException;
@@ -20,7 +19,7 @@ public class UpgradeScriptTest extends BaseModuleContextSensitiveTest {
 		Properties properties = LiquibaseRunner.loadProperties();
 		String script = properties.getProperty("script.file");
 
-		if (StringUtils.isEmpty(script)) {
+		if (script != null && !script.trim().equals("")) {
 			Assert.fail("The liquibase upgrade script must be specified. (-Dscript.file=<path to file>)");
 		}
 

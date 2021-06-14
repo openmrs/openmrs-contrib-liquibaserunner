@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="mvp/prepare-dictionary-before-upgrade-1" author="liquibaserunner"
+			   dbms="mysql">
+		<comment>
+			Reassigns SNOMED NP to SNOMED CT
+		</comment>
+		<update tableName="concept_map">
+			<column name="source" value="1"/>
+			<where>source=2</where>
+		</update>
+	</changeSet>
+	<changeSet id="mvp/prepare-dictionary-before-upgrade-2" author="liquibaserunner">
+		<comment>
+			Retires SNOMED NP
+		</comment>
+		<update tableName="concept_source">
+			<column name="retired" value="1" />
+			<column name="retired_by" value="1" />
+			<column name="retire_reason" value="Replaced with SNOMED CT" />
+			<column name="date_retired" value="2021-03-18 12:00:00" />
+			<where>name='SNOMED NP'</where>
+		</update>
+	</changeSet>
+
+
+</databaseChangeLog>

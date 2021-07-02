@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openmrs.contrib</groupId>
 	<artifactId>liquibaserunner</artifactId>
@@ -18,12 +18,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<liquibase.version>2</liquibase.version>
 		<openmrs.version>1.9.0</openmrs.version>
-		<properties.file></properties.file>
+		<properties.file />
 		<mvp.file>mvp/openmrs_concepts_1.6.5_20120525.xml</mvp.file>
-		<script.file></script.file>
-		<db.url><![CDATA[jdbc:mysql://localhost:3306/liquibaserunner?autoReconnect=true&useUnicode=true&characterEncoding=utf-8]]></db.url>
+		<script.file />
+		<db.url>jdbc:mysql://localhost:3306/liquibaserunner?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8</db.url>
 		<db.user>root</db.user>
-		<db.password></db.password>
+		<db.password />
 	</properties>
 
 	<dependencies>
@@ -112,7 +112,7 @@
 		<repository>
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+			<url>https://mavenrepo.openmrs.org/public</url>
 		</repository>
 	</repositories>
 </project>

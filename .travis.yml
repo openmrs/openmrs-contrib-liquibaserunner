@@ -44,10 +44,10 @@ jobs:
       - OPENMRS_VERSION=2.3.0
       - PROFILE=''
       - FILE_SUFFIX=2_3
-  - env:
-      - OPENMRS_VERSION=2.4.0
-      - PROFILE=''
-      - FILE_SUFFIX=2_4
+#  - env:
+#      - OPENMRS_VERSION=2.4.0
+#      - PROFILE=''
+#      - FILE_SUFFIX=2_4
 
 install: true
 

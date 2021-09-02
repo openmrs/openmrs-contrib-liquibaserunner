@@ -11,6 +11,7 @@ import org.openmrs.util.InputRequiredException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class UpgradeScriptTest extends BaseModuleContextSensitiveTest {
@@ -30,7 +31,7 @@ public class UpgradeScriptTest extends BaseModuleContextSensitiveTest {
 		}
 
 		try {
-			DatabaseUpdater.executeChangelog(script, null);
+			DatabaseUpdater.executeChangelog(script, new HashMap<String, Object>());
 
 		} catch (InputRequiredException e) {
 			e.printStackTrace();

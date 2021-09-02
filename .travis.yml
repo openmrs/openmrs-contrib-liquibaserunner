@@ -6,53 +6,57 @@ jdk:
 services:
   - mysql
 
+jobs:
+  include:
+  - env:
+      - OPENMRS_VERSION=1.7.4
+      - PROFILE='-Ppre-1.9'
+      - FILE_SUFFIX=1_7
+  - env:
+      - OPENMRS_VERSION=1.8.3
+      - PROFILE='-Ppre-1.9'
+      - FILE_SUFFIX=1_8
+  - env:
+      - OPENMRS_VERSION=1.9.12
+      - PROFILE=''
+      - FILE_SUFFIX=1_9
+  - env:
+      - OPENMRS_VERSION=1.10.2
+      - PROFILE=''
+      - FILE_SUFFIX=1_10
+  - env:
+      - OPENMRS_VERSION=1.11.4
+      - PROFILE=''
+      - FILE_SUFFIX=1_11
+  - env:
+      - OPENMRS_VERSION=2.0.1
+      - PROFILE=''
+      - FILE_SUFFIX=2_0
+  - env:
+      - OPENMRS_VERSION=2.1.0
+      - PROFILE=''
+      - FILE_SUFFIX=2_1
+  - env:
+      - OPENMRS_VERSION=2.2.0
+      - PROFILE=''
+      - FILE_SUFFIX=2_2
+  - env:
+      - OPENMRS_VERSION=2.3.0
+      - PROFILE=''
+      - FILE_SUFFIX=2_3
+  - env:
+      - OPENMRS_VERSION=2.4.0
+      - PROFILE=''
+      - FILE_SUFFIX=2_4
+
 install: true
 
 script:
   - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
   - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));" -uroot
-  - mvn install -q -Ppre-1.9 -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="1.7.4" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_1_7.sql
-  - zip openmrs_concepts_1_7.zip openmrs_concepts_1_7.sql
-  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
-  - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));" -uroot
-  - mvn install -q -Ppre-1.9 -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="1.8.3" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_1_8.sql
-  - zip openmrs_concepts_1_8.zip openmrs_concepts_1_8.sql
-  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
-  - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));" -uroot
-  - mvn install -q  -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="1.9.12" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_1_9.sql
-  - zip openmrs_concepts_1_9.zip openmrs_concepts_1_9.sql
-  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
-  - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));" -uroot
-  - mvn install -q -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="1.10.2" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_1_10.sql
-  - zip openmrs_concepts_1_10.zip openmrs_concepts_1_10.sql
-  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
-  - mysql -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));" -uroot
-  - mvn install -q -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="1.11.4" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_1_11.sql
-  - zip openmrs_concepts_1_11.zip openmrs_concepts_1_11.sql
-  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
-  - mvn install -q -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.0.1" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_2_0.sql
-  - zip openmrs_concepts_2_0.zip openmrs_concepts_2_0.sql 
-  - mysql -e "DROP DATABASE liquibaserunner;" -uroot
-  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
-  - mvn install -q -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.1.0" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_2_1.sql
-  - zip openmrs_concepts_2_1.zip openmrs_concepts_2_1.sql 
-  - mysql -e "DROP DATABASE liquibaserunner;" -uroot
-  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
-  - mvn install -q -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.2.0" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_2_2.sql
-  - zip openmrs_concepts_2_2.zip openmrs_concepts_2_2.sql
-  - mysql -e "DROP DATABASE liquibaserunner;" -uroot
-  - mysql -e "CREATE DATABASE IF NOT EXISTS liquibaserunner CHARACTER SET utf8 COLLATE utf8_general_ci;" -uroot
-  - mvn install -q -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="2.3.0" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
-  - mysqldump -uroot liquibaserunner > openmrs_concepts_2_3.sql
-  - zip openmrs_concepts_2_3.zip openmrs_concepts_2_3.sql
+  - mvn install -q $PROFILE -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="$OPENMRS_VERSION" -Ddb.user="root" -Ddb.password="" -Dmvp.file="$TRAVIS_BUILD_DIR/openmrs_concepts_1_6.zip"
+  - mysqldump -uroot liquibaserunner > "openmrs_concepts_$FILE_SUFFIX.sql"
+  - zip "openmrs_concepts_$FILE_SUFFIX.zip" "openmrs_concepts_$FILE_SUFFIX.sql"
   
 deploy:
   provider: releases
@@ -67,6 +71,7 @@ deploy:
     - "openmrs_concepts_2_1.zip"
     - "openmrs_concepts_2_2.zip"
     - "openmrs_concepts_2_3.zip"
+    - "openmrs_concepts_2_4.zip"
   skip_cleanup: true
   on:
     tags: true

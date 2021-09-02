@@ -33,11 +33,7 @@ public class UpgradeScriptTest extends BaseModuleContextSensitiveTest {
 		try {
 			DatabaseUpdater.executeChangelog(script, new HashMap<String, Object>());
 
-		} catch (InputRequiredException e) {
-			e.printStackTrace();
-
-			Assert.fail(e.getMessage());
-		} catch (DatabaseUpdateException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 
 			Assert.fail(e.getMessage());

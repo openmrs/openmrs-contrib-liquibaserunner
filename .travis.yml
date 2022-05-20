@@ -44,10 +44,14 @@ jobs:
       - OPENMRS_VERSION=2.3.0
       - PROFILE=''
       - FILE_SUFFIX=2_3
-#  - env:
-#      - OPENMRS_VERSION=2.4.0
-#      - PROFILE=''
-#      - FILE_SUFFIX=2_4
+  - env:
+      - OPENMRS_VERSION=2.4.5
+      - PROFILE=''
+      - FILE_SUFFIX=2_4
+  - env:
+      - OPENMRS_VERSION=2.5.5
+      - PROFILE=''
+      - FILE_SUFFIX=2_5
 
 install: true
 
@@ -72,6 +76,7 @@ deploy:
     - "openmrs_concepts_2_2.zip"
     - "openmrs_concepts_2_3.zip"
     - "openmrs_concepts_2_4.zip"
+    - "openmrs_concepts_2_5.zip"
   skip_cleanup: true
   on:
     tags: true

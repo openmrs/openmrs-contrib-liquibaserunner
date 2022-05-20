@@ -19,7 +19,7 @@
 	</Appenders>
 	<Loggers>
 		<Logger name="org.openmrs" level="INFO" />
-		<Root level="INFO">
+		<Root level="WARN">
 			<AppenderRef ref="CONSOLE" />
 		</Root>
 	</Loggers>

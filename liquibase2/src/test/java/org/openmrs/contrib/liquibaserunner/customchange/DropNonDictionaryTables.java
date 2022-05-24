@@ -1,4 +1,4 @@
-/**
+	/**
  * The contents of this file are subject to the OpenMRS Public License
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
@@ -28,8 +28,6 @@ import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.DropTableStatement;
-
-import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.parameters;
 
 /**
  * Drops tables other than needed by the concept dictionary.

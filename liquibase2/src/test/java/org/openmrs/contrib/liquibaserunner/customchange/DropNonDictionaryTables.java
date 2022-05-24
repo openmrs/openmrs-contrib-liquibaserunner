@@ -13,6 +13,7 @@
  */
 package org.openmrs.contrib.liquibaserunner.customchange;
 
+import java.lang.reflect.Constructor;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.DropTableStatement;
+
+import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.parameters;
 
 /**
  * Drops tables other than needed by the concept dictionary.
@@ -54,7 +57,15 @@ public class DropNonDictionaryTables implements CustomSqlChange {
 				String tableName = results.getString(1);
 				if (!tableName.startsWith("concept") && !tableName.startsWith("databasechangelog")
 						&& !tableName.equalsIgnoreCase("drug") && !tableName.equalsIgnoreCase("drug_ingredient")) {
-					dropStatements.add(new DropTableStatement(schema, tableName, true));
+					DropTableStatement instance = null;
+					try {
+						Constructor<?> clazz = DropTableStatement.class.getConstructor(String.class, String.class, boolean.class);
+						instance = (DropTableStatement) clazz.newInstance(schema, tableName, true);
+					} catch (NoSuchMethodException e) {
+						Constructor<?> clazz = DropTableStatement.class.getConstructor(String.class, String.class, String.class, boolean.class);
+						instance = (DropTableStatement) clazz.newInstance(null, schema, tableName, true);
+					}
+					dropStatements.add(instance);
 				}
 			}
 			

@@ -13,6 +13,7 @@
  */
 package org.openmrs.contrib.liquibaserunner.customchange;
 
+import java.lang.reflect.Constructor;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -54,7 +55,14 @@ public class ResetUsersInTables implements CustomSqlChange {
 				
 				while (results.next()) {
 					String tableName = results.getString(1);
-					UpdateStatement updateStatement = new UpdateStatement(schemaName, tableName);
+					UpdateStatement updateStatement = null;
+					try {
+						Constructor<?> clazz = UpdateStatement.class.getConstructor(String.class, String.class);
+						updateStatement = (UpdateStatement) clazz.newInstance(schemaName, tableName);
+					} catch (NoSuchMethodException e) {
+						Constructor<?> clazz = UpdateStatement.class.getConstructor(String.class, String.class, String.class);
+						updateStatement = (UpdateStatement) clazz.newInstance(null, schemaName, tableName);
+					}
 					updateStatement.addNewColumnValue(columnName, 1);
 					updateStatements.add(updateStatement);
 				}

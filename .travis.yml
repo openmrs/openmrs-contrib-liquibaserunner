@@ -57,8 +57,7 @@ jobs:
 
 install: true
 
-script:
-  - ./upgrade_mvp.sh
+script: bash upgrade_mvp.sh
   
 deploy:
   provider: releases

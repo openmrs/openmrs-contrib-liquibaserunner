@@ -27,5 +27,17 @@
 		</update>
 	</changeSet>
 
+	<changeSet id="mvp/prepare-dictionary-before-upgrade-3" author="liquibaserunner"
+			   dbms="mysql">
+		<comment>
+			Adds missing voided column to concept_source
+		</comment>
+		<addColumn tableName="concept_source">
+			<column name="voided" type="tinyint" defaultValueNumeric="0">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
 
 </databaseChangeLog>

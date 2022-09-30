@@ -22,7 +22,7 @@
 		<mvp.file>mvp/openmrs_concepts_1.6.5_20120525.xml</mvp.file>
 		<mvp.step>0</mvp.step>
 		<script.file />
-		<db.url>jdbc:mysql://localhost:3306/liquibaserunner?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8</db.url>
+		<db.url>jdbc:mysql://127.0.0.1:3306/liquibaserunner?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8</db.url>
 		<db.user>root</db.user>
 		<db.password />
 	</properties>

@@ -251,7 +251,7 @@ public class LiquibaseRunner {
 			liquibase.forceReleaseLocks();
 			connection.close();
 		}
-		catch (SQLException e) {
+		catch (Exception e) {
 			throw new LiquibaseRunnerException(e);
 		}
 	}

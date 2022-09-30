@@ -235,6 +235,8 @@ public class LiquibaseRunner {
 		final String user = properties.getProperty("db.user");
 		final String password = properties.getProperty("db.password");
 		
+		System.out.println("Connecting to " + url + " " + user + ":" + password);
+		
 		return DriverManager.getConnection(url, user, password);
 		
 	}

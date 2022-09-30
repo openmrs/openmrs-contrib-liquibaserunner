@@ -248,7 +248,6 @@ public class LiquibaseRunner {
 	
 	public void close() throws LiquibaseRunnerException {
 		try {
-			liquibase.forceReleaseLocks();
 			connection.close();
 		}
 		catch (Exception e) {

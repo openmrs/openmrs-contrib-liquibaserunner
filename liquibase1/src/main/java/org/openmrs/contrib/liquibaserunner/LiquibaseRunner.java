@@ -76,7 +76,7 @@ public class LiquibaseRunner {
 				final String changeLogTempFile = createTempChangeLogFile(changeLogFile);
 				liquibase = new Liquibase(changeLogTempFile, new FileSystemFileOpener(), database);
 			}
-			liquibase.forceReleaseLocks();
+			//liquibase.forceReleaseLocks();
 		}
 		catch (Exception e) {
 			throw new LiquibaseRunnerException(e);

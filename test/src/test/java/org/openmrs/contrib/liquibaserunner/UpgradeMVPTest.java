@@ -34,17 +34,16 @@ public class UpgradeMVPTest {
 
 		if (step == 0 || step == 1) {
 			liquibase = new LiquibaseRunner("openmrs-1.6.x/1.6.6.27476-2012.05.28-clean.xml", false);
-			liquibase.dropAll();
 			liquibase.update();
-			liquibase.dropChangeLogAndClose();
+			liquibase.close();
 
 			liquibase = new LiquibaseRunner(properties.getProperty("mvp.file"), false);
 			liquibase.update();
-			liquibase.dropChangeLogAndClose();
+			liquibase.close();
 
 			liquibase = new LiquibaseRunner("mvp/prepare-dictionary-before-upgrade.xml", false);
 			liquibase.update();
-			liquibase.dropChangeLogAndClose();
+			liquibase.close();
 
 			liquibase = new LiquibaseRunner(LiquibaseRunner.OPENMRS_UPDATE_FILE, true);
 			liquibase.update();

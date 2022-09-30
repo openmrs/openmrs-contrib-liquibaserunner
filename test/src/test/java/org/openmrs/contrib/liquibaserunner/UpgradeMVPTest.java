@@ -33,32 +33,33 @@ public class UpgradeMVPTest {
 		LiquibaseRunner liquibase;
 
 		if (step == 0 || step == 1) {
-			liquibase = new LiquibaseRunner("openmrs-1.6.x/1.6.6.27476-2012.05.28-clean.xml", true);
+			liquibase = new LiquibaseRunner("openmrs-1.6.x/1.6.6.27476-2012.05.28-clean.xml", false);
+			liquibase.dropAll();
 			liquibase.update();
-			liquibase.dropChangeLogAndClose();
+			liquibase.close();
 
-			liquibase = new LiquibaseRunner(properties.getProperty("mvp.file"), true);
+			liquibase = new LiquibaseRunner(properties.getProperty("mvp.file"), false);
 			liquibase.update();
-			liquibase.dropChangeLogAndClose();
+			liquibase.close();
 
-			liquibase = new LiquibaseRunner("mvp/prepare-dictionary-before-upgrade.xml", true);
+			liquibase = new LiquibaseRunner("mvp/prepare-dictionary-before-upgrade.xml", false);
 			liquibase.update();
-			liquibase.dropChangeLogAndClose();
+			liquibase.close();
 
 			liquibase = new LiquibaseRunner(LiquibaseRunner.OPENMRS_UPDATE_FILE, true);
 			liquibase.update();
-			liquibase.dropChangeLogAndClose();
+			liquibase.close();
 		}
 
 		if (step == 2) {
 			// Upgrade MVP to the latest version in the second run
 			liquibase = new LiquibaseRunner(LiquibaseRunner.OPENMRS_UPDATE_FILE, true);
 			liquibase.update();
-			liquibase.dropChangeLogAndClose();
+			liquibase.close();
 		}
 
 		if (step == 0 || step == 2) {
-			liquibase = new LiquibaseRunner("mvp/prepare-dictionary.xml", true);
+			liquibase = new LiquibaseRunner("mvp/prepare-dictionary.xml", false);
 			liquibase.update();
 
 			liquibase.dropChangeLogAndClose();

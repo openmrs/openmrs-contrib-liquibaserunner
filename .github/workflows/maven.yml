@@ -42,9 +42,9 @@ jobs:
           - OPENMRS_VERSION: 2.2.0
             PROFILE: ''
             FILE_SUFFIX: 2_2
-          - OPENMRS_VERSION: 2.3.9
-            PROFILE: ''
-            FILE_SUFFIX: 2_3
+          #- OPENMRS_VERSION: 2.3.9
+          #  PROFILE: ''
+          #  FILE_SUFFIX: 2_3
           - OPENMRS_VERSION: 2.4.5
             PROFILE: ''
             FILE_SUFFIX: 2_4

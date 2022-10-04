@@ -18,6 +18,35 @@ jobs:
         ports:
         - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    strategy:
+      matrix:
+        include:
+          - OPENMRS_VERSION: 1.10.2
+            PROFILE: ''
+            FILE_SUFFIX: 1_10
+          - OPENMRS_VERSION: 1.11.4
+            PROFILE: ''
+            FILE_SUFFIX: 1_11
+          - OPENMRS_VERSION: 2.0.1
+            PROFILE: ''
+            FILE_SUFFIX: 2_0
+          - OPENMRS_VERSION: 2.1.0
+            PROFILE: ''
+            FILE_SUFFIX: 2_1
+          - OPENMRS_VERSION: 2.2.0
+            PROFILE: ''
+            FILE_SUFFIX: 2_2
+          - OPENMRS_VERSION: 2.3.9
+            PROFILE: ''
+            FILE_SUFFIX: 2_3
+          - OPENMRS_VERSION: 2.4.5
+            PROFILE: ''
+            FILE_SUFFIX: 2_4
+            TWO_STEP: 'true'
+          - OPENMRS_VERSION: 2.5.5
+            PROFILE: ''
+            FILE_SUFFIX: 2_5
+            TWO_STEP: 'true'
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
@@ -28,12 +57,8 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: bash upgrade_mvp.sh
-      env:
-        OPENMRS_VERSION: 1.11.4
-        PROFILE: ''
-        FILE_SUFFIX: 1_11
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
       with: 
-        name: openmrs_concepts_1_11.zip
-        path: openmrs_concepts_1_11.zip
+        name: exports
+        path: '*.zip'

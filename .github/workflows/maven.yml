@@ -21,6 +21,12 @@ jobs:
     strategy:
       matrix:
         include:
+          - OPENMRS_VERSION: 1.8.3
+            PROFILE: '-Ppre-1.9'
+            FILE_SUFFIX: 1_8
+          - OPENMRS_VERSION: 1.9.12
+            PROFILE: ''
+            FILE_SUFFIX: 1_9
           - OPENMRS_VERSION: 1.10.2
             PROFILE: ''
             FILE_SUFFIX: 1_10

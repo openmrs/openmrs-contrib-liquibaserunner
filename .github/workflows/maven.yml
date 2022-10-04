@@ -31,6 +31,6 @@ jobs:
     - name: Build with Maven
       run: bash upgrade_mvp.sh
       env:
-        OPENMRS_VERSION: 1.9.12
+        OPENMRS_VERSION: 1.11.4
         PROFILE: ''
-        FILE_SUFFIX: 1_9
+        FILE_SUFFIX: 1_11

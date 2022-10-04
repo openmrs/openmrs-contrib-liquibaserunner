@@ -63,6 +63,11 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: bash upgrade_mvp.sh
+      env:
+        OPENMRS_VERSION: ${{ matrix.OPENMRS_VERSION }}
+        PROFILE: ${{ matrix.PROFILE }}
+        FILE_SUFFIX: ${{ matrix.FILE_SUFFIX }}
+        TWO_STEP: ${{ matrix.TWO_STEP }}
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
       with: 

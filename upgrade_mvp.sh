@@ -10,5 +10,5 @@ else
   mvn install -e -q $PROFILE -Dtest=UpgradeMVPTest -DfailIfNoTests=false -Dopenmrs.version="$OPENMRS_VERSION" -Ddb.user="root" -Ddb.password="root" -Dmvp.file="${GITHUB_WORKSPACE}/openmrs_concepts_1_6.zip"
 fi
 
-mysqldump -h 127.0.0.1 -uroot -proot liquibaserunner > "openmrs_concepts_$FILE_SUFFIX.sql"
+mysqldump -h 127.0.0.1 -uroot -proot --column-statistics=0 liquibaserunner > "openmrs_concepts_$FILE_SUFFIX.sql"
 zip "openmrs_concepts_$FILE_SUFFIX.zip" "openmrs_concepts_$FILE_SUFFIX.sql"

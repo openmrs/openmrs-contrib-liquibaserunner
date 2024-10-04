@@ -58,7 +58,6 @@ jobs:
         TWO_STEP: ${{ matrix.TWO_STEP }}
     - name: Archive build artifacts locally
       run: |
-        mv openmrs_concepts_${{ matrix.FILE_SUFFIX }}.zip
         mkdir -p ../artifacts
         mv openmrs_concepts_${{ matrix.FILE_SUFFIX }}.zip ../artifacts/
 

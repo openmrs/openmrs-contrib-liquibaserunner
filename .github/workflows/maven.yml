@@ -58,26 +58,22 @@ jobs:
         TWO_STEP: ${{ matrix.TWO_STEP }}
     - name: Archive build artifacts locally
       run: |
-        mkdir -p ../artifacts
-        mv openmrs_concepts_${{ matrix.FILE_SUFFIX }}.zip ../artifacts/
+        mkdir -p ${{ github.workspace }}/artifacts
+        mv openmrs_concepts_${{ matrix.FILE_SUFFIX }}.zip ${{ github.workspace }}/artifacts/
 
   merge:
     runs-on: ubuntu-latest
     needs: build
     steps:
-    - name: Download all artifacts from build jobs
-      run: |
-        mkdir artifacts
-        cp build/**/artifacts/*.zip ./artifacts/
     - name: Merge all zip files into a single exports.zip
       run: |
-        cd artifacts
+        cd ${{ github.workspace }}/artifacts
         zip ../exports.zip ./*.zip
     - name: Clean up temporary artifacts
       run: |
-        rm -rf ./artifacts
+        rm -rf ${{ github.workspace }}/artifacts
     - name: Upload final merged artifact
       uses: actions/upload-artifact@v4
       with:
         name: exports.zip
-        path: exports.zip
+        path: ${{ github.workspace }}/exports.zip

@@ -59,5 +59,11 @@ jobs:
     - name: Publish artifacts
       uses: actions/upload-artifact@v4
       with: 
-        name: exports/openmrs_concepts_${{ matrix.FILE_SUFFIX }}.zip
+        name: openmrs_concepts_${{ matrix.FILE_SUFFIX }}.zip
         path: '*.zip'
+    - name: Merge artifacts
+      uses: actions/upload-artifact/merge@v4
+      with:
+        name: exports
+        pattern: openmrs_concepts_*.zip
+        delete-merged: true

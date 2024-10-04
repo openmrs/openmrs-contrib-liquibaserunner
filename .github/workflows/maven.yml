@@ -57,7 +57,7 @@ jobs:
         FILE_SUFFIX: ${{ matrix.FILE_SUFFIX }}
         TWO_STEP: ${{ matrix.TWO_STEP }}
     - name: Publish artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with: 
         name: exports
         path: '*.zip'

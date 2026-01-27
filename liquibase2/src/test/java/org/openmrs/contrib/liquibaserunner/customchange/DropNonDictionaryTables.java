@@ -1,4 +1,4 @@
-	/**
+/**
  * The contents of this file are subject to the OpenMRS Public License
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
@@ -53,8 +53,7 @@ public class DropNonDictionaryTables implements CustomSqlChange {
 			List<DropTableStatement> dropStatements = new ArrayList<DropTableStatement>();
 			while (results.next()) {
 				String tableName = results.getString(1);
-				if (!tableName.startsWith("concept") && !tableName.startsWith("databasechangelog")
-						&& !tableName.equalsIgnoreCase("drug") && !tableName.equalsIgnoreCase("drug_ingredient")) {
+				if (!tableName.startsWith("concept") && !tableName.startsWith("databasechangelog")) {
 					DropTableStatement instance = null;
 					try {
 						Constructor<?> clazz = DropTableStatement.class.getConstructor(String.class, String.class, boolean.class);

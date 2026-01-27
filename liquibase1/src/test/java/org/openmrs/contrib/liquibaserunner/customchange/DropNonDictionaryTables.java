@@ -1,5 +1,3 @@
-package org.openmrs.contrib.liquibaserunner.customchange;
-
 /**
  * The contents of this file are subject to the OpenMRS Public License
  * Version 1.0 (the "License"); you may not use this file except in
@@ -13,6 +11,7 @@ package org.openmrs.contrib.liquibaserunner.customchange;
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
+package org.openmrs.contrib.liquibaserunner.customchange;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -53,8 +52,7 @@ public class DropNonDictionaryTables implements CustomSqlChange {
 			List<DropTableStatement> dropStatements = new ArrayList<DropTableStatement>();
 			while (results.next()) {
 				String tableName = results.getString(1);
-				if (!tableName.startsWith("concept") && !tableName.startsWith("databasechangelog")
-						&& !tableName.equalsIgnoreCase("drug") && !tableName.equalsIgnoreCase("drug_ingredient")) {
+				if (!tableName.startsWith("concept") && !tableName.startsWith("databasechangelog")) {
 					dropStatements.add(new DropTableStatement(schema, tableName, true));
 				}
 			}
